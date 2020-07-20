@@ -1,0 +1,14 @@
+@import "~antd/dist/antd.css";
+
+.boco {
+  height: 100vh;
+  .boco-sider {
+    height: 100%;
+    overflow: auto;
+  }
+
+  .boco-content {
+    height: 100%;
+    overflow: auto;
+  }
+}
