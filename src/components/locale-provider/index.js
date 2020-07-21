@@ -3,9 +3,14 @@ import intl from 'react-intl-universal';
 import { ConfigProvider } from 'antd';
 import antd_zh_CN from 'antd/lib/locale-provider/zh_CN';
 import antd_en_US from 'antd/lib/locale-provider/en_US';
+import constants from '../../common/constants';
 
 import moment from 'moment';
-import proxy from '../common/api';
+import 'moment/locale/zh-cn';
+
+import proxy from '../../common/api';
+
+import find from 'lodash/find';
 
 require('intl/locale-data/jsonp/en.js');
 require('intl/locale-data/jsonp/zh.js');
@@ -74,28 +79,29 @@ export class LocaleProvider extends Component {
 
     loadLocales() {
         let currentLocale = this.determineLocale(langKeysOptions);
-        if (!find(SUPPORT, { value: currentLocale })) {
+        if (!find(SUPPORT_LOCALES, { value: currentLocale })) {
             currentLocale = DEFAULTLOCALE;
         }
-
-        proxy.loadJSON({
-                fullUrl: `${constant.LOCALES_PATH}/${currentLocale}.json`,
-                type: 'get'
-            }).then((res) => {
-            intl.init({
-                currentLocale,
-                locales: {
-                    [currentLocale]: window.locale,
-                },
-            }).then(() => {
-                moment.locale(currentLocale);
-                this.setState({
-                    initDone: true,
-                    antdLocale: currentLocale === 'en-US' ? antd_en_US : antd_zh_CN,
+        proxy
+            .loadJSON({
+                fullUrl: `${constants.LOCALES_PATH}/${currentLocale}.json`,
+                type: 'get',
+            })
+            .then((res) => {
+                intl.init({
+                    currentLocale,
+                    locales: {
+                        [currentLocale]: res,
+                    },
+                }).then(() => {
+                    moment.locale(currentLocale);
+                    this.setState({
+                        initDone: true,
+                        antdLocale: currentLocale === 'en-US' ? antd_en_US : antd_zh_CN,
+                    });
+                    localStorage.setItem(langKeysOptions.localStorageLocaleKey, currentLocale);
                 });
-                localStorage.setItem(langKeysOptions.localStorageLocaleKey, currentLocale);
             });
-        });
     }
 
     render() {

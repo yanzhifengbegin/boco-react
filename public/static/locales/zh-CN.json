@@ -16,7 +16,12 @@
         "need100Words": "字数限制100个",
         "noResponse": "网络开小差了，请重试下"
     },
-    "enums": {},
+    "enums": {
+        "enableStatus": {
+            "enable": "启用",
+            "disable": "禁用"
+        }
+    },
     "pages": {},
-    "components": {},
+    "components": {}
 }

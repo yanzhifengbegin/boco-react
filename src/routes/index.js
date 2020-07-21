@@ -1,41 +1,43 @@
-import React from "react";
-import isString from "lodash/isString";
+import React from 'react';
+import isString from 'lodash/isString';
+
+// const TestPage = React.lazy(() => import("@Pages/test"));
 
 function loadComponent(component) {
-  return import(`@Pages/${component}`);
+    return import(`@Pages/${component}`);
 }
 
 function buildRoutes(routes) {
-  if (routes == null || !(routes instanceof Array)) {
-    routes = [];
-  }
-
-  routes = routes.map((route) => {
-    if (route.routes instanceof Array && route.routes.length > 0) {
-      route.routes = buildRoutes(route.routes);
+    if (routes == null || !(routes instanceof Array)) {
+        routes = [];
     }
 
-    if (isString(route.component)) {
-      route.component = React.lazy(() => loadComponent(route.component));
-    }
+    routes = routes.map((route) => {
+        if (route.routes instanceof Array && route.routes.length > 0) {
+            route.routes = buildRoutes(route.routes);
+        }
 
-    return route;
-  });
+        if (isString(route.component)) {
+            route.url = route.component;
+            route.component = React.lazy(() => loadComponent(route.url));
+        }
 
-  return routes;
+        return route;
+    });
+
+    return routes;
 }
 
 const routes = [
-  {
-    path: "/",
-    component: "test",
-    routes: [],
-  },
+    {
+        path: '/',
+        component: 'test',
+        routes: [],
+    },
 ];
 
 const allRoutes = buildRoutes(routes);
-console.log(allRoutes);
 
 export default allRoutes;
 
-export * from "./base";
+export * from './base';

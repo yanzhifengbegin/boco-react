@@ -5,6 +5,7 @@ import routes, { mapRoutes, Switch } from "./routes";
 import "./styles/App.scss";
 
 const { Sider, Content, Header } = Layout;
+
 export default class App extends React.PureComponent {
   constructor(props) {
     super(props);

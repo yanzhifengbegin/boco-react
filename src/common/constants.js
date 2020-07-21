@@ -1,8 +1,13 @@
-const { NODE_ENV, PUBLIC_URL, APP_HOST, APP_MOCK } = process.env;
+const { PUBLIC_URL } = process.env;
 console.log(process.env, 'process.env');
-
+const STATIC_PATH = `${PUBLIC_URL}/static`;
+const IMAGE_PATH = `${STATIC_PATH}/images`;
+const LOCALES_PATH = `${STATIC_PATH}/locales`;
 const test = 'testConstants';
 
 export default {
-    test
-}
+    test,
+    STATIC_PATH,
+    IMAGE_PATH,
+    LOCALES_PATH,
+};
