@@ -62,7 +62,7 @@
   },
   "dependencies": {
     "antd": "^4.4.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "connected-react-router": "^6.8.0",
     "eruda": "^2.3.3",
     "history": "^5.0.0",
